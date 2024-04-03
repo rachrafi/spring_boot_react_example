@@ -24,4 +24,4 @@ You can test the main API using the following curl commands (shown with its outp
 
 ---
 
-To see the frontend, navigate to http://localhost:8080. You are immediately redirected to a login form. Log in as `greg/turnquist`
+To see the frontend, navigate to http://localhost:8080. You are immediately redirected to a login form. Log in as `greg/turnquist`.
