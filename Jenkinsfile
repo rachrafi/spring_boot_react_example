@@ -3,14 +3,15 @@ def imageName = 'rachrafi.jfrog.io/rachrafi-docker-local/ttrend'
 def version   = '2.1.2'
 
 pipeline {
-    agent {
-        node {
-            label 'maven'
-        }
-    }
-environment {
-    PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
-}
+  agent {
+     node {
+       label 'maven'
+     }
+  }
+
+  environment {
+      PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
+  }
     stages {
         stage("build"){
             steps {
@@ -27,16 +28,16 @@ environment {
             }
         }
 
-    /* stage('SonarQube analysis') {
+  stage('SonarQube Analysis') {
     environment {
-      scannerHome = tool 'valaxy-sonar-scanner'
+      scannerHome = tool 'sonar-scanner'
     }
     steps{
-    withSonarQubeEnv('valaxy-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
+    withSonarQubeEnv('sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
       sh "${scannerHome}/bin/sonar-scanner"
     }
     }
-  } */
+  }
   /* stage("Quality Gate"){
     steps {
         script {
