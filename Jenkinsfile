@@ -22,9 +22,9 @@ pipeline {
         }
         stage("test"){
             steps{
-                echo "----------- unit test started ----------"
+                echo "----------- Unit test started ----------"
                 sh 'mvn surefire-report:report'
-                 echo "----------- unit test Completed ----------"
+                 echo "----------- Unit test Completed ----------"
             }
         }
 
@@ -34,22 +34,24 @@ pipeline {
     }
     steps{
     withSonarQubeEnv('sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
+      echo "----------- Sonar Scanner started ----------"
       sh "${scannerHome}/bin/sonar-scanner"
+      echo "----------- Sonar Scanner Ended ----------"
     }
     }
   }
-  /* stage("Quality Gate"){
+  stage("SonarQube Quality Gate"){
     steps {
         script {
         timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-    if (qg.status != 'OK') {
-      error "Pipeline aborted due to quality gate failure: ${qg.status}"
+          def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+          if (qg.status != 'OK') {
+            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+          }
+        }
+      }
     }
   }
-}
-    }
-  } */
       /* stage("Jar Publish") {
         steps {
             script {
