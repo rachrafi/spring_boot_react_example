@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Employee {
@@ -18,7 +18,7 @@ public class Employee {
 	private String lastName;
 	private String description;
 
-	private @Version @JsonIgnore Long version;
+	private @Version Long version;
 
 	private @ManyToOne Manager manager;
 
