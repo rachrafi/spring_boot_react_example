@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Manager {
@@ -21,24 +21,24 @@ public class Manager {
 
 	private String name;
 
-	//private String password;
+	private String password;
 
 	private String[] roles;
 
-	/* public void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = PASSWORD_ENCODER.encode(password);
-	} */
+	}
 
 	protected Manager() {}
 
-	/* public Manager(String name, String password, String... roles) {
+	public Manager(String name, String password, String... roles) {
 
 		this.name = name;
 		this.setPassword(password);
 		this.roles = roles;
-	} */
+	}
 
-	/* @Override
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -47,15 +47,15 @@ public class Manager {
 			Objects.equals(name, manager.name) &&
 			Objects.equals(password, manager.password) &&
 			Arrays.equals(roles, manager.roles);
-	} */
+	}
 
-	/* @Override
+	@Override
 	public int hashCode() {
 
 		int result = Objects.hash(id, name, password);
 		result = 31 * result + Arrays.hashCode(roles);
 		return result;
-	} */
+	}
 
 	public Long getId() {
 		return id;
@@ -73,9 +73,9 @@ public class Manager {
 		this.name = name;
 	}
 
-	/* public String getPassword() {
+	public String getPassword() {
 		return password;
-	} */
+	}
 
 	public String[] getRoles() {
 		return roles;
