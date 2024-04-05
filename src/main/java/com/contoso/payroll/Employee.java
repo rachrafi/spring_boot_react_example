@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Employee {
@@ -18,7 +18,7 @@ public class Employee {
 	private String lastName;
 	private String description;
 
-	//private @Version @JsonIgnore Long version;
+	private @Version @JsonIgnore Long version;
 
 	private @ManyToOne Manager manager;
 
@@ -41,7 +41,7 @@ public class Employee {
 			Objects.equals(firstName, employee.firstName) &&
 			Objects.equals(lastName, employee.lastName) &&
 			Objects.equals(description, employee.description) &&
-			//Objects.equals(version, employee.version) &&
+			Objects.equals(version, employee.version) &&
 			Objects.equals(manager, employee.manager);
 	}
 
@@ -83,13 +83,13 @@ public class Employee {
 		this.description = description;
 	}
 
-	//public Long getVersion() {
-	//	return version;
-	//}
+	public Long getVersion() {
+		return version;
+	}
 
-	//public void setVersion(Long version) {
-	//	this.version = version;
-	//}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
 	public Manager getManager() {
 		return manager;
@@ -106,7 +106,7 @@ public class Employee {
 			", firstName='" + firstName + '\'' +
 			", lastName='" + lastName + '\'' +
 			", description='" + description + '\'' +
-			//", version=" + version +
+			", version=" + version +
 			", manager=" + manager +
 			'}';
 	}
