@@ -44,7 +44,11 @@ pipeline {
     steps {
         script {
           echo "----------- SonarQube Quality Gate Check Started ----------"
-        timeout(time: 10, unit: 'MINUTES') { // Just in case something goes wrong, pipeline will be killed after a timeout
+        timeout(time: 30, unit: 'MINUTES') { // Just in case something goes wrong, pipeline will be killed after a timeout
+          // Add slight delay to circumvent quality gate race condition
+          echo " ********* SLEEP FOR 15 SECONDS ********"
+          sleep(time:15,unit:"SECONDS")
+
           def qualityGate = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
           if (qualityGate.status != 'OK') {
             error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
@@ -54,17 +58,17 @@ pipeline {
       }
     }
   }
-      /* stage("Jar Publish") {
+      stage("Upload Jar file to Artifactory") {
         steps {
             script {
-                    echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artfiact-cred"
+                    echo '<--------------- Upload JAR to Artifactory --------------->'
+                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifact-cred"
                      def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "libs-release-local/{1}",
+                              "target": "react-libs-snapshot/{1}",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]
@@ -74,12 +78,11 @@ pipeline {
                      def buildInfo = server.upload(uploadSpec)
                      buildInfo.env.collect()
                      server.publishBuildInfo(buildInfo)
-                     echo '<--------------- Jar Publish Ended --------------->'  
+                     echo '<--------------- Artifactory JAR Upload Ended --------------->'
             
             }
         }
-
-    } */
+      }
 
    /*  stage(" Docker Build ") {
       steps {
