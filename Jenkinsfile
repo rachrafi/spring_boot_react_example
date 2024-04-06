@@ -27,7 +27,7 @@ pipeline {
                  echo "----------- Unit test Completed ----------"
             }
         }
-  /* 
+
   stage('SonarQube Analysis') {
     environment {
       scannerHome = tool 'sonar-scanner'
@@ -58,7 +58,7 @@ pipeline {
       }
     }
   }
-  */
+
       stage("Upload Jar file to Artifactory") {
         steps {
             script {
